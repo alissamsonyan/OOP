@@ -4,8 +4,6 @@
 int main() {
     CommandHandler handler;
     std::string command;
-
-    std::cout << "Welcome to the Shape Management System!" << std::endl;
     std::cout << "Enter commands (add, remove, display, change, list, exit):" << std::endl;
 
     while (true) {
