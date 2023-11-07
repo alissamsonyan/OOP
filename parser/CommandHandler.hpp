@@ -1,21 +1,20 @@
-#ifndef COMMAND_HANDLER_HPP
-#define COMMAND_HANDLER_HPP
+#ifndef COMMANDHANDLER_HPP
+#define COMMANDHANDLER_HPP
 
-#include <iostream>
-#include <string>
-#include <vector>
-#include <map>
-#include "Shapes.hpp"
+#include "Shape.hpp"
 #include "Parser.hpp"
+#include <map>
+#include <functional>
 
 class CommandHandler {
 public:
     CommandHandler();
+
     void ExecuteCommand(const std::string& command);
 
 private:
-    std::map<int, Shape> shapeMap;
     int nextShapeID;
+    std::map<int, Shape> shapeMap;
     Parser parser;
 
     void AddShape(const std::vector<std::string>& tokens);
@@ -25,4 +24,4 @@ private:
     void ListShapes();
 };
 
-#endif // COMMAND_HANDLER_HPP
+#endif

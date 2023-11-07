@@ -1,17 +1,18 @@
-#ifndef SHAPES_HPP
-#define SHAPES_HPP
+#ifndef SHAPE_HPP
+#define SHAPE_HPP
 
 #include <string>
 
 class Shape {
 public:
     Shape(int id, const std::string& name);
-    const std::string& GetName() const;
+
     int GetID() const;
+    const std::string& GetName() const;
 
 private:
+    int id;
     std::string name;
-    int shapeID;
 };
 
-#endif // SHAPES_HPP
+#endif

@@ -1,7 +1,7 @@
 #include "CommandHandler.hpp"
+#include <iostream>
 
-CommandHandler::CommandHandler() : nextShapeID(1) {
-}
+CommandHandler::CommandHandler() : nextShapeID(1) {}
 
 void CommandHandler::ExecuteCommand(const std::string& command) {
     std::vector<std::string> tokens = parser.ParseCommand(command);
@@ -23,25 +23,30 @@ void CommandHandler::ExecuteCommand(const std::string& command) {
         ChangeShape(tokens);
     } else if (cmd == "list") {
         ListShapes();
-    } else if (cmd == "exit") {
-        std::cout << "Exiting program." << std::endl;
     } else {
         std::cout << "Invalid command. Please enter a valid command." << std::endl;
     }
 }
 
 void CommandHandler::AddShape(const std::vector<std::string>& tokens) {
-    if (tokens.size() != 4 || tokens[1] != "-name") {
+    if (tokens.size() != 5 || tokens[1] != "-name" || tokens[3] != "-id") {
         std::cout << "Invalid add command format. Use 'add -name ShapeName -id ShapeID'." << std::endl;
         return;
     }
 
     const std::string shapeName = tokens[2];
-    const int shapeID = std::stoi(tokens[3]);
+    const int shapeID = std::stoi(tokens[4]);
+
+    if (shapeMap.find(shapeID) != shapeMap.end()) {
+        std::cout << "Shape with ID " << shapeID << " already exists. Please use a unique ID." << std::endl;
+        return;
+    }
+
+    Shape newShape(shapeID, shapeName);
+    shapeMap.insert({shapeID, newShape});
 
     std::cout << "Added shape: " << shapeName << " with ID " << shapeID << "." << std::endl;
 }
-
 
 void CommandHandler::RemoveShape(const std::vector<std::string>& tokens) {
     if (tokens.size() != 2 || tokens[1] != "-id") {
@@ -91,10 +96,15 @@ void CommandHandler::ChangeShape(const std::vector<std::string>& tokens) {
 
     if (it != shapeMap.end()) {
         std::string shapeName = it->second.GetName();
-        shapeMap.erase(it);
-        Shape newShape(newShapeID, shapeName);
-        shapeMap.insert({newShapeID, newShape});
-        std::cout << shapeName << " with ID " << shapeID << " changed to " << newShapeID << "." << std::endl;
+
+        if (shapeMap.find(newShapeID) != shapeMap.end()) {
+            std::cout << "Shape with ID " << newShapeID << " already exists. Please use a unique ID." << std::endl;
+        } else {
+            shapeMap.erase(it);
+            Shape newShape(newShapeID, shapeName);
+            shapeMap.insert({newShapeID, newShape});
+            std::cout << shapeName << " with ID " << shapeID << " changed to " << newShapeID << "." << std::endl;
+        }
     } else {
         std::cout << "Shape with ID " << shapeID << " not found." << std::endl;
     }

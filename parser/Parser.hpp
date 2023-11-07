@@ -6,7 +6,6 @@
 
 class Parser {
 public:
-    Parser();
     std::vector<std::string> ParseCommand(const std::string& command);
 };
 
