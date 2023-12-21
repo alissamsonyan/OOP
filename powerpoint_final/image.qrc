@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>images.qrc/about.png</file>
+        <file>images.qrc/aboutQt.png</file>
+        <file>images.qrc/exit.png</file>
+        <file>images.qrc/help.png</file>
+        <file>images.qrc/new.png</file>
+        <file>images.qrc/open.png</file>
+        <file>images.qrc/run.png</file>
+        <file>images.qrc/save.png</file>
+        <file>images.qrc/saveAs.png</file>
+    </qresource>
+</RCC>
